@@ -9,10 +9,12 @@ export interface Product{
     img?:string,
 }
 export interface ProductProps{
-    children?:ReactElement|ReactElement[]
-    product:Product,
-    className?:string,
-    style?:React.CSSProperties
+    children?: ReactElement|ReactElement[]
+    product: Product,
+    className?: string,
+    style?: React.CSSProperties,
+    onChange?:(args:onChangeArgs) => void,
+    value?:number
 }
 export interface ProductContextProps{
     increaseBy: (value:number) => void,
@@ -26,4 +28,12 @@ export interface ProductCardHOCProps{
     Image: (Props:ProducImageProps) => JSX.Element;
     Buttons: (Props:ProducButtonsProps) => JSX.Element;
 
+}
+export interface onChangeArgs{
+    product:Product,
+    count:number
+}
+
+export interface ProductInCart extends Product{
+    count:number
 }
