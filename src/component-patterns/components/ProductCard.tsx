@@ -6,19 +6,24 @@ import { ProductContextProps, ProductProps } from '../interfaces/ProductInterfac
 
 export const ProductContext = createContext({} as ProductContextProps)
 const {Provider}=ProductContext
-
-
-
-
-
-
-export const ProductCard = ({ children , product , className , style , onChange,value }:ProductProps) => {
-    const {counter,increaseBy}=useProduct({onChange,product,value})
+export const ProductCard = ({ children , product , className , style , onChange,value,initialValues }:ProductProps) => {
+    const {counter,increaseBy,maxCount,isMaxCountReached,reset}=useProduct({onChange,product,value,initialValues})
 
     return (
-        <Provider value={{ increaseBy,counter,product}}>
+        <Provider value={{ increaseBy,counter,product,maxCount}}>
             <div className={`${ styles.productCard } ${ className }`} style={ style }>
-                {children}
+                {
+                children({
+                    count:counter,
+                    isMaxCountReached,
+                    maxCount:initialValues?.maxCount,
+                    product,
+                    
+                    increaseBy,
+                    reset
+
+                })
+                }
             </div>
          </Provider>
     )

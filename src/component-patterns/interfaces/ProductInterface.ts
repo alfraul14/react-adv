@@ -9,17 +9,20 @@ export interface Product{
     img?:string,
 }
 export interface ProductProps{
-    children?: ReactElement|ReactElement[]
-    product: Product,
+    //children?: ReactElement|ReactElement[]
+    product:Product,
+    children:(args:ProductCardHandler)=>JSX.Element,
     className?: string,
     style?: React.CSSProperties,
     onChange?:(args:onChangeArgs) => void,
-    value?:number
+    value?:number,
+    initialValues: InitialValues
 }
 export interface ProductContextProps{
     increaseBy: (value:number) => void,
     counter:number,
-    product:Product
+    product:Product,
+    maxCount?:number
 }
 export interface ProductCardHOCProps{
 
@@ -36,4 +39,18 @@ export interface onChangeArgs{
 
 export interface ProductInCart extends Product{
     count:number
+}
+export interface InitialValues{
+    count?: number,
+    maxCount?: number
+}
+export interface ProductCardHandler{
+    count:number;
+    isMaxCountReached:boolean,
+    maxCount?:number,
+    product:Product,
+    
+    increaseBy:( value:number ) => void,
+    reset: () => void
+
 }
